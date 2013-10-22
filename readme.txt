@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/similar-posts
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.6.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Download and activate the plugin. Go to Widgets and add the Similar Posts widget
 
 == Frequently Asked Questions ==
 
-= How does the plugin determine whether two posts are similar =
+= How does the plugin determine whether two posts are similar? =
 
 It checks the categories assigned to this and other posts. The most similar post is considered the one with the most common categories.
 
@@ -32,17 +32,20 @@ Yes, when inserting the widget you are allowed to chose between categories, tags
 
 = Does this work for custom post types? =
 
-Support for Custom Post Types is still not present but is in the works for the next version for the plugin.
+Yes, this works for pages, posts or any custom post type you have.
 
 = Does this check the post's content too? =
 
-No, currently similarity is calculated only in terms of shared terms (categories, tags, etc).
+No, currently similarity is calculated only in by shared taxonomy terms (categories, tags, etc).
 
 == Screenshots ==
 
-
+screenshot-1.png
 
 == Changelog ==
+
+= 1.0.1 =
+Updated readme.
 
 = 1.0 =
 Plugin was released.
