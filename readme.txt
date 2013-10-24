@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/similar-posts
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.6.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,9 @@ No, currently similarity is calculated only in by shared taxonomy terms (categor
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.0.4 =
+Updated readme.
 
 = 1.0.3 =
 Added [magadanski-similar-posts] shortcode.

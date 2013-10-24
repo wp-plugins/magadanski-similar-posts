@@ -3,7 +3,7 @@
  * Plugin Name: Magadanski Similar Posts
  * Plugin URI: https://github.com/magadanskiuchen/Magadanski-Similar-Posts
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
