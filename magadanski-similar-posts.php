@@ -17,6 +17,7 @@ class Magadanski_Similar_Posts {
 	private static $instance = null;
 	
 	private $args = array();
+	private $similar_id = 0;
 	
 	private function __construct() {
 		add_action('plugins_loaded', array(&$this, 'init'));
@@ -44,18 +45,26 @@ class Magadanski_Similar_Posts {
 	
 	public function get_defaults() {
 		return array(
-			'ID' => get_the_ID(),
 			'post_type' => 'post',
 			'posts_per_page' => 5,
 			'taxonomy' => 'category',
+			'no_found_rows' => true
 		);
 	}
 	
-	public function get_similar_posts($args = array()) {
+	public function get_similar_posts($args = array(), $similar_id = 0) {
+		$similar_id = absint($similar_id);
+		
+		if ($similar_id) {
+			$this->similar_id = $similar_id
+		} else {
+			$this->similar_id = get_the_ID();
+		}
+		
 		$this->args = wp_parse_args($args, $this->get_defaults());
 		
 		$this->add_query_filters();
-		$similar_posts = new WP_Query(array('post_type'=>$args['post_type'], 'posts_per_page'=>$args['posts_per_page'], 'no_found_rows'=>true));
+		$similar_posts = new WP_Query($this->args);
 		$this->remove_query_filters();
 		
 		return $similar_posts;
@@ -102,10 +111,10 @@ class Magadanski_Similar_Posts {
 			AND `simposts_term_rel`.`term_taxonomy_id` IN (
 				SELECT `term_rel`.`term_taxonomy_id`
 				FROM `$wpdb->term_relationships` AS `term_rel`
-				WHERE `term_rel`.`object_id` = {$this->args['ID']}
+				WHERE `term_rel`.`object_id` = {$this->similar_id}
 			)
 			AND `simposts_term_tax`.`taxonomy` = '{$this->args['taxonomy']}'
-			AND `$wpdb->posts`.`ID` != {$this->args['ID']} ";
+			AND `$wpdb->posts`.`ID` != {$this->similar_id} ";
 		
 		return $where;
 	}
