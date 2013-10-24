@@ -40,7 +40,7 @@ No, currently similarity is calculated only in by shared taxonomy terms (categor
 
 == Screenshots ==
 
-1. The options for the plugin widgets.
+1. The options for the plugin's widget.
 
 == Changelog ==
 
