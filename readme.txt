@@ -15,10 +15,11 @@ This plugin lists similar to the current post based on the number of common cate
 This plugin adds a widget to WordPress that will list similar posts to the one being reviewed. The widget will only be rendered on a post single page, as otherwise it would not be relevant.
 
 A shortcode is also available -- [magadanski-similar-posts]. There are several attributes available for the shortcode:
+
 1. ID -- (_integer_) the ID of the post you'd like to get similar posts for. Default value: the current post ID.
-2. post_type -- (_string_) the post type you'd like to query. Default value: "post".
-3. taxonomy -- (_string_) the taxonomy based on which you'd like to get similar items. Default value: "category".
-4. limit -- (_integer_) a maximum number of results you'd like to receive. Default value: 5.
+1. post_type -- (_string_) the post type you'd like to query. Default value: "post".
+1. taxonomy -- (_string_) the taxonomy based on which you'd like to get similar items. Default value: "category".
+1. limit -- (_integer_) a maximum number of results you'd like to receive. Default value: 5.
 
 The similarity is considered based on the number of common categories for this posts and the rest of the posts in your blog.
 
