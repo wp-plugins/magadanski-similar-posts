@@ -65,7 +65,10 @@ class Magadanski_Similar_Posts {
 	}
 	
 	public function get_similar_posts($args = array(), $similar_id = 0) {
-		$this->set_similar_id($similar_id);
+		if ($similar_id) {
+			$this->set_similar_id($similar_id);
+		}
+		
 		$this->args = wp_parse_args($args, $this->get_defaults());
 		
 		$this->add_query_filters();
@@ -138,13 +141,13 @@ class Magadanski_Similar_Posts {
 		$output = '';
 		
 		extract(shortcode_atts(array(
-			'ID' => get_the_ID(),
+			'id' => get_the_ID(),
 			'post_type' => 'post',
 			'taxonomy' => 'category',
 			'limit' => 5,
-		)));
+		), $atts));
 		
-		$this->set_similar_id($ID);
+		$this->set_similar_id($id);
 		
 		$similar_posts = $this->get_similar_posts(array('post_type'=>$post_type, 'taxonomy'=>$taxonomy, 'posts_per_page'=>absint($limit), 'no_found_rows'=>true));
 		
