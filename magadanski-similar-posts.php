@@ -3,7 +3,7 @@
  * Plugin Name: Magadanski Similar Posts
  * Plugin URI: https://github.com/magadanskiuchen/Magadanski-Similar-Posts
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
@@ -33,10 +33,22 @@ class Magadanski_Similar_Posts {
 		return self::$instance;
 	}
 	
+	private function set_similar_id($id) {
+		$id = absint($id);
+		
+		if ($id) {
+			$this->similar_id = $id;
+		} else {
+			$this->similar_id = get_the_ID();
+		}
+	}
+	
 	public function init() {
 		load_plugin_textdomain('simposts', false, basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'languages');
 		
 		add_action('widgets_init', array(&$this, 'widgets_init'));
+		
+		add_shortcode('magadanski-similar-posts', array(&$this, 'shortcode'));
 	}
 	
 	public function widgets_init() {
@@ -53,14 +65,7 @@ class Magadanski_Similar_Posts {
 	}
 	
 	public function get_similar_posts($args = array(), $similar_id = 0) {
-		$similar_id = absint($similar_id);
-		
-		if ($similar_id) {
-			$this->similar_id = $similar_id
-		} else {
-			$this->similar_id = get_the_ID();
-		}
-		
+		$this->set_similar_id($similar_id);
 		$this->args = wp_parse_args($args, $this->get_defaults());
 		
 		$this->add_query_filters();
@@ -127,6 +132,39 @@ class Magadanski_Similar_Posts {
 	
 	public function posts_orderby($orderby) {
 		return " `simposts_connections` DESC ";
+	}
+	
+	public function shortcode($atts) {
+		$output = '';
+		
+		extract(shortcode_atts(array(
+			'ID' => get_the_ID(),
+			'post_type' => 'post',
+			'taxonomy' => 'category',
+			'limit' => 5,
+		)));
+		
+		$this->set_similar_id($ID);
+		
+		$similar_posts = $this->get_similar_posts(array('post_type'=>$post_type, 'taxonomy'=>$taxonomy, 'posts_per_page'=>absint($limit), 'no_found_rows'=>true));
+		
+		if ($similar_posts->have_posts()) {
+			ob_start();
+			
+			echo '<ul>';
+			while ($similar_posts->have_posts()) {
+				$similar_posts->the_post();
+				$post_title = get_the_title();
+				echo '<li><a href="' . get_permalink(get_the_ID()) . '" title="' . esc_attr($post_title) . '">' . $post_title . '</a></li>';
+			}
+			echo '</ul>';
+			
+			$output = ob_get_clean();
+		}
+		
+		wp_reset_query();
+		
+		return $output;
 	}
 }
 

@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/similar-posts
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.6.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,12 @@ This plugin lists similar to the current post based on the number of common cate
 == Description ==
 
 This plugin adds a widget to WordPress that will list similar posts to the one being reviewed. The widget will only be rendered on a post single page, as otherwise it would not be relevant.
+
+A shortcode is also available -- [magadanski-similar-posts]. There are several attributes available for the shortcode:
+1. ID -- (_integer_) the ID of the post you'd like to get similar posts for. Default value: the current post ID.
+2. post_type -- (_string_) the post type you'd like to query. Default value: "post".
+3. taxonomy -- (_string_) the taxonomy based on which you'd like to get similar items. Default value: "category".
+4. limit -- (_integer_) a maximum number of results you'd like to receive. Default value: 5.
 
 The similarity is considered based on the number of common categories for this posts and the rest of the posts in your blog.
 
@@ -43,6 +49,9 @@ No, currently similarity is calculated only in by shared taxonomy terms (categor
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.0.3 =
+Added [magadanski-similar-posts] shortcode.
 
 = 1.0.2 =
 Added proper screenshots
