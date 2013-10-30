@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: M Similar Posts
- * Plugin URI: https://github.com/magadanskiuchen/Magadanski-Similar-Posts
+ * Plugin URI: http://wordpress.org/plugins/magadanski-similar-posts/
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
@@ -155,9 +155,7 @@ class Magadanski_Similar_Posts {
 	 * @return WP_Query Object containing similar posts.
 	 */
 	public function get_similar_posts($args = array(), $similar_id = 0) {
-		if ($similar_id) {
-			$this->set_similar_id($similar_id);
-		}
+		$this->set_similar_id($similar_id);
 		
 		$this->args = wp_parse_args($args, $this->get_defaults());
 		
