@@ -3,28 +3,79 @@
  * Plugin Name: Magadanski Similar Posts
  * Plugin URI: https://github.com/magadanskiuchen/Magadanski-Similar-Posts
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
  */
 
-define('SIMPOSTS_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+define('MSP_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 
-require_once(SIMPOSTS_DIR . 'Magadanski_Similar_Posts_Widget.php');
+require_once(MSP_DIR . 'Magadanski_Similar_Posts_Widget.php');
 
+/**
+ * Plugin Singleton Class
+ * 
+ * @since 1.0
+ */
 class Magadanski_Similar_Posts {
+	/**
+	 * Singleton instance holder
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @var Magadanski_Similar_Posts
+	 */
 	private static $instance = null;
 	
+	/**
+	 * Query arguments store
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @var array
+	 */
 	private $args = array();
+	
+	/**
+	 * Holder for current/query post ID
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @var int
+	 */
 	private $similar_id = 0;
 	
+	/**
+	 * Plugin constructor
+	 * 
+	 * There should be only a single instance of the class. Therefor the constructor method is private.
+	 * Use Magadanski_Similar_Posts::get_instance() to obtain access to the class' only instance.
+	 * @since 1.0
+	 * @access private
+	 * @see Magadanski_Similar_Posts::get_instance()
+	 * @return Magadanski_Similar_Posts
+	 */
 	private function __construct() {
 		add_action('plugins_loaded', array(&$this, 'init'));
 	}
 	
+	/**
+	 * Class cloning is forbidden in order to keep just a single instance.
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @return void
+	 */
 	private function __clone() {}
 	
+	/**
+	 * Provides access to the class' instance
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return Magadanski_Similar_Posts
+	 */
 	public static function get_instance() {
 		if (!self::$instance instanceof self) {
 			self::$instance = new self();
@@ -33,6 +84,14 @@ class Magadanski_Similar_Posts {
 		return self::$instance;
 	}
 	
+	/**
+	 * Setter for the $similar_id property
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @param int $id the ID to be stored
+	 * @return void
+	 */
 	private function set_similar_id($id) {
 		$id = absint($id);
 		
@@ -43,18 +102,39 @@ class Magadanski_Similar_Posts {
 		}
 	}
 	
+	/**
+	 * Plugin initialization. Called on the plugins_loaded hook
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return void
+	 */
 	public function init() {
-		load_plugin_textdomain('simposts', false, basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'languages');
+		load_plugin_textdomain('msp', false, basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'languages');
 		
 		add_action('widgets_init', array(&$this, 'widgets_init'));
 		
 		add_shortcode('magadanski-similar-posts', array(&$this, 'shortcode'));
 	}
 	
+	/**
+	 * Plugin widget initialization. Called on the widgets_init hook.
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return void
+	 */
 	public function widgets_init() {
 		register_widget('Magadanski_Similar_Posts_Widget');
 	}
 	
+	/**
+	 * Plugin default query parameters
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return array The default options for the plugin when making a query
+	 */
 	public function get_defaults() {
 		return array(
 			'post_type' => 'post',
@@ -64,6 +144,16 @@ class Magadanski_Similar_Posts {
 		);
 	}
 	
+	/**
+	 * Main plugin functionality method.
+	 * 
+	 * Easily called from other plugins and/or themes. Allows you to hook to the plugin's functionality.
+	 * @since 1.0
+	 * @access public
+	 * @param array $args Query parameters that will later on be passed to WP_Query. The parameters can be compatible. Terms from the `taxonomy` parameter will be used to determine similarity
+	 * @param int $similar_id = 0 The ID of the post you'd like to get similar for. By default this will use the current post's ID.
+	 * @return WP_Query Object containing similar posts.
+	 */
 	public function get_similar_posts($args = array(), $similar_id = 0) {
 		if ($similar_id) {
 			$this->set_similar_id($similar_id);
@@ -71,13 +161,23 @@ class Magadanski_Similar_Posts {
 		
 		$this->args = wp_parse_args($args, $this->get_defaults());
 		
+		// attach necessary filters
 		$this->add_query_filters();
 		$similar_posts = new WP_Query($this->args);
+		
+		// remove filters not to affect other queries
 		$this->remove_query_filters();
 		
 		return $similar_posts;
 	}
 	
+	/**
+	 * Method to add custom query filters.
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @return void
+	 */
 	private function add_query_filters() {
 		add_filter('posts_request', array(&$this, 'posts_request'));
 		add_filter('posts_join', array(&$this, 'posts_join'));
@@ -86,6 +186,13 @@ class Magadanski_Similar_Posts {
 		add_filter('posts_orderby', array(&$this, 'posts_orderby'));
 	}
 	
+	/**
+	 * Method to remove custom query filters.
+	 * 
+	 * @since 1.0
+	 * @access private
+	 * @return void
+	 */
 	private function remove_query_filters() {
 		remove_filter('posts_request', array(&$this, 'posts_request'));
 		remove_filter('posts_join', array(&$this, 'posts_join'));
@@ -94,49 +201,92 @@ class Magadanski_Similar_Posts {
 		remove_filter('posts_orderby', array(&$this, 'posts_orderby'));
 	}
 	
+	/**
+	 * Posts request modification filder
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return string
+	 */
 	public function posts_request($request) {
 		global $wpdb;
 		
-		$request = preg_replace('/SELECT ([^(FROM)]+) FROM/', 'SELECT $1, COUNT(`' . $wpdb->posts . '`.`post_title`) AS `simposts_connections` FROM', $request);
+		// use regular expression to modify "SELECT" statement, as no filter is available for that
+		$request = preg_replace('/SELECT ([^(FROM)]+) FROM/', 'SELECT $1, COUNT(`' . $wpdb->posts . '`.`post_title`) AS `msp_connections` FROM', $request);
 		
 		return $request;
 	}
 	
+	/**
+	 * Query join filter
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return string
+	 */
 	public function posts_join($join) {
 		global $wpdb;
 		
 		$join .= "
-			INNER JOIN `$wpdb->term_relationships` AS `simposts_term_rel` ON (`simposts_term_rel`.`object_id` = `$wpdb->posts`.`ID`)
-			INNER JOIN `$wpdb->term_taxonomy` AS `simposts_term_tax` ON (`simposts_term_tax`.`term_taxonomy_id` = `simposts_term_rel`.`term_taxonomy_id`) ";
+			INNER JOIN `$wpdb->term_relationships` AS `msp_term_rel` ON (`msp_term_rel`.`object_id` = `$wpdb->posts`.`ID`)
+			INNER JOIN `$wpdb->term_taxonomy` AS `msp_term_tax` ON (`msp_term_tax`.`term_taxonomy_id` = `msp_term_rel`.`term_taxonomy_id`) ";
 		
 		return $join;
 	}
 	
+	/**
+	 * Query where filter
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return string
+	 */
 	public function posts_where($where) {
 		global $wpdb;
 		
 		$where .= "
-			AND `simposts_term_rel`.`term_taxonomy_id` IN (
+			AND `msp_term_rel`.`term_taxonomy_id` IN (
 				SELECT `term_rel`.`term_taxonomy_id`
 				FROM `$wpdb->term_relationships` AS `term_rel`
 				WHERE `term_rel`.`object_id` = {$this->similar_id}
 			)
-			AND `simposts_term_tax`.`taxonomy` = '{$this->args['taxonomy']}'
+			AND `msp_term_tax`.`taxonomy` = '{$this->args['taxonomy']}'
 			AND `$wpdb->posts`.`ID` != {$this->similar_id} ";
 		
 		return $where;
 	}
 	
+	/**
+	 * Query groupby filter
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return string
+	 */
 	public function posts_groupby($groupby) {
 		global $wpdb;
 		
 		return " `$wpdb->posts`.`post_title` ";
 	}
 	
+	/**
+	 * Query orderby filter
+	 * 
+	 * @since 1.0
+	 * @access public
+	 * @return string
+	 */
 	public function posts_orderby($orderby) {
-		return " `simposts_connections` DESC ";
+		return " `msp_connections` DESC ";
 	}
 	
+	/**
+	 * Plugin shortcode method
+	 * 
+	 * @since 1.0.3
+	 * @access public
+	 * @return string
+	 */
 	public function shortcode($atts) {
 		$output = '';
 		
