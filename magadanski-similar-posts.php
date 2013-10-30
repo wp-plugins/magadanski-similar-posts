@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Magadanski Similar Posts
+ * Plugin Name: M Similar Posts
  * Plugin URI: https://github.com/magadanskiuchen/Magadanski-Similar-Posts
  * Description: Shows similar posts ordered by the number of common categories.
  * Version: 1.0.5
