@@ -1,11 +1,11 @@
-=== Magadanski Similar Posts ===
+=== M Similar Posts ===
 Contributors: magadanski_uchen
-Donate link: http://buy-me-a-beer.magadanski.com/similar-posts
+Donate link: http://buy-me-a-beer.magadanski.com/project/similar-posts
 Tags: similar, posts, category
 Requires at least: 3.0
-Tested up to: 3.6.1
-Stable tag: 1.0.4
-License: GPL2
+Tested up to: 3.7.1
+Stable tag: 1.0.5
+License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin lists similar to the current post based on the number of common categories.
@@ -50,6 +50,15 @@ No, currently similarity is calculated only in by shared taxonomy terms (categor
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.0.5 =
+ * Added inline documentation and some code comments.
+ * Plugin name rebranded from "Magadanski Similar Posts" to "M Similar Posts"
+ * i18n, filters and function prefixes updated to match rebranding -- "msp" is used instead of "simposts"
+
+The folder for the plugin files has been kept to "magadanski-similar-posts" to prevent plugin deactivation upon update.
+
+Hopefully the available custom filters have not been widely spread, so this change will not affect any custom code.
 
 = 1.0.4 =
 Updated readme.
