@@ -1,6 +1,6 @@
 === M Similar Posts ===
 Contributors: magadanski_uchen
-Donate link: http://buy-me-a-beer.magadanski.com/project/similar-posts
+Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-posts/
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.7.1
