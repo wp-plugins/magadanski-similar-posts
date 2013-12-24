@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-post
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,11 +45,20 @@ Yes, this works for pages, posts or any custom post type you have.
 
 No, currently similarity is calculated only in by shared taxonomy terms (categories, tags, etc).
 
+= Is the plugin offered in my language? =
+
+The plugin is originally distributed in English and is also translated in Spanish and Bulgarian. In case you need it in some other language I would gladly accept your assistance in internationalizing it. There are only 6 sentences and terms that need to be translated for any language.
+
 == Screenshots ==
 
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.0.7 =
+Tested compatibility with WordPress 3.8 -- no issues registered.
+
+Added Spanish localization for the plugin thanks to Andrew Kurtis from [WebHostingHub](http://www.webhostinghub.com/)
 
 = 1.0.6 =
 Fix for cause preventing widget from rendering.
