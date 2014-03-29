@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Magadanski Similar Posts\n"
-"POT-Creation-Date: 2013-10-20 16:06+0200\n"
-"PO-Revision-Date: 2013-10-20 16:06+0200\n"
+"POT-Creation-Date: 2014-03-29 12:36+0200\n"
+"PO-Revision-Date: 2014-03-29 12:36+0200\n"
 "Last-Translator: Georgi Popov <magadanski_uchen@yahoo.com>\n"
 "Language-Team: Magadanski_Uchen\n"
-"Language: English\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-KeywordsList: _;_e;_n:1,2;_x;esc_attr_e;esc_html_e;_n_noop:1,2;"
 "_nx:1,2;_nx_noop:1,2;__\n"
 "X-Poedit-Basepath: .\n"
@@ -17,26 +17,58 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../Magadanski_Similar_Posts_Widget.php:47
+#: ../magadanski-similar-posts.php:382
+msgid "M Similar Posts"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:385
+msgid "Content"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:390
+msgid "Limit"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:393
+msgid "Maximum number of similar items to display"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:398
+msgid "Post Type"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:401
+msgid "The type of post to show similar entries from"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:406
+msgid "Taxonomy"
+msgstr ""
+
+#: ../magadanski-similar-posts.php:409
+msgid "Taxonomy the similarity should be based on"
+msgstr ""
+
+#: ../Magadanski_Similar_Posts_Widget.php:19
 msgid "Similar Posts"
 msgstr ""
 
-#: ../Magadanski_Similar_Posts_Widget.php:49
+#: ../Magadanski_Similar_Posts_Widget.php:21
 msgid "A list of similar posts"
 msgstr ""
 
-#: ../Magadanski_Similar_Posts_Widget.php:98
+#: ../Magadanski_Similar_Posts_Widget.php:87
 msgid "Title:"
 msgstr ""
 
-#: ../Magadanski_Similar_Posts_Widget.php:103
+#: ../Magadanski_Similar_Posts_Widget.php:92
 msgid "Limit:"
 msgstr ""
 
-#: ../Magadanski_Similar_Posts_Widget.php:108
+#: ../Magadanski_Similar_Posts_Widget.php:97
 msgid "Post Type:"
 msgstr ""
 
-#: ../Magadanski_Similar_Posts_Widget.php:123
+#: ../Magadanski_Similar_Posts_Widget.php:112
 msgid "Taxonomy:"
 msgstr ""
