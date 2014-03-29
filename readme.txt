@@ -3,8 +3,8 @@ Contributors: magadanski_uchen
 Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-posts/
 Tags: similar, posts, category
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 1.0.7
+Tested up to: 3.9
+Stable tag: 1.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,15 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.1 =
+Added [WPBakery Visual Composer](http://vc.wpbakery.com/) integration.
+
+Fix: `set_similar_id` uses current post's ID only of `$id` argument is 0 AND `similar_id` property is 0 too.
+
+Dev: externalized `get_post_types` and `get_taxonomies` methods for `Magadanski_Similar_Posts_Widget` widget as global helper functions prefixed `msp_`:
+ * `msp_get_post_types`
+ * `msp_get_taxonomies`
 
 = 1.0.7 =
 Tested compatibility with WordPress 3.8 -- no issues registered.

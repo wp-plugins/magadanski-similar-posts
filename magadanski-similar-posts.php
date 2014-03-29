@@ -3,7 +3,7 @@
  * Plugin Name: M Similar Posts
  * Plugin URI: http://wordpress.org/plugins/magadanski-similar-posts/
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.0.7
+ * Version: 1.1
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
@@ -11,6 +11,7 @@
 
 define('MSP_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 
+require_once(MSP_DIR . 'helper_functions.php');
 require_once(MSP_DIR . 'Magadanski_Similar_Posts_Widget.php');
 
 /**
@@ -19,6 +20,15 @@ require_once(MSP_DIR . 'Magadanski_Similar_Posts_Widget.php');
  * @since 1.0
  */
 class Magadanski_Similar_Posts {
+	/**
+	 * Plugin version constant
+	 * 
+	 * @since 1.1
+	 * @access public
+	 * @const VERSION
+	 */
+	const VERSION = '1.1';
+	
 	/**
 	 * Singleton instance holder
 	 * 
@@ -97,9 +107,20 @@ class Magadanski_Similar_Posts {
 		
 		if ($id) {
 			$this->similar_id = $id;
-		} else {
+		} else if (!$this->similar_id) {
 			$this->similar_id = get_the_ID();
 		}
+	}
+	
+	/**
+	 * Helper function to provide URL to the plugins directory
+	 * 
+	 * @since 1.1
+	 * @access public
+	 * @return void
+	 */
+	public function plugin_url() {
+		return plugins_url('/', __FILE__);
 	}
 	
 	/**
@@ -113,8 +134,11 @@ class Magadanski_Similar_Posts {
 		load_plugin_textdomain('msp', false, basename(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'languages');
 		
 		add_action('widgets_init', array(&$this, 'widgets_init'));
+		add_action('admin_enqueue_scripts', array(&$this, 'admin_enqueue_scripts'));
 		
 		add_shortcode('magadanski-similar-posts', array(&$this, 'shortcode'));
+		
+		$this->vc_integration();
 	}
 	
 	/**
@@ -126,6 +150,17 @@ class Magadanski_Similar_Posts {
 	 */
 	public function widgets_init() {
 		register_widget('Magadanski_Similar_Posts_Widget');
+	}
+	
+	/**
+	 * Adding admin panel scripts and styles
+	 * 
+	 * @since 1.1
+	 * @access public
+	 * @return void
+	 */
+	public function admin_enqueue_scripts() {
+		wp_enqueue_style('msp-admin', $this->plugin_url() . 'admin.css', array(), self::VERSION, 'all');
 	}
 	
 	/**
@@ -316,6 +351,67 @@ class Magadanski_Similar_Posts {
 		wp_reset_query();
 		
 		return $output;
+	}
+	
+	/**
+	 * Visual Composer Integration
+	 * 
+	 * @since 1.1
+	 * @access public
+	 * @return void
+	 */
+	public function vc_integration() {
+		if (function_exists('vc_map')) {
+			$defaults = $this->get_defaults();
+			
+			$all_post_types = msp_get_post_types();
+			$post_type_options = array();
+			
+			$all_taxonomies = msp_get_taxonomies($current_post_type);
+			$taxonomy_options = array();
+			
+			foreach ($all_post_types as $post_type => $post_type_object) {
+				$post_type_options[$post_type_object->labels->name] = $post_type;
+			}
+			
+			foreach ($all_taxonomies as $tax => $tax_object) {
+				$taxonomy_options[$tax_object->labels->name] = $tax;
+			}
+			
+			vc_map(array(
+				'name' => __('M Similar Posts', 'msp'),
+				'base' => 'magadanski-similar-posts',
+				'class' => '',
+				'category' => __('Content', 'msp'),
+				'icon' => 'msp',
+				'params' => array(
+					array(
+						'type' => 'textfield',
+						'heading' => __('Limit', 'msp'),
+						'param_name' => 'limit',
+						'value' => '5',
+						'description' => __('Maximum number of similar items to display', 'msp'),
+						'admin_label' => false,
+					),
+					array(
+						'type' => 'dropdown',
+						'heading' => __('Post Type', 'msp'),
+						'param_name' => 'post_type',
+						'value' => $post_type_options,
+						'description' => __('The type of post to show similar entries from', 'msp'),
+						'admin_label' => true,
+					),
+					array(
+						'type' => 'dropdown',
+						'heading' => __('Taxonomy', 'msp'),
+						'param_name' => 'taxonomy',
+						'value' => $taxonomy_options,
+						'description' => __('Taxonomy the similarity should be based on', 'msp'),
+						'admin_label' => true,
+					),
+				),
+			));
+		}
 	}
 }
 

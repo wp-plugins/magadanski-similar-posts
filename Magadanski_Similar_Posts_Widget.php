@@ -7,73 +7,6 @@
  */
 class Magadanski_Similar_Posts_Widget extends WP_Widget {
 	/**
-	 * Helper method to return valid widget post types
-	 * 
-	 * The result would be the built-in post types, except for attachment, revision and nav_menu_items (should result in just post and page).
-	 * Additionally this will include any custom post types.
-	 * A `msp_disallowed_post_types` filter is available to exclude other post types or allow one of the blocked by default.
-	 * @since 1.0
-	 * @access private
-	 * @return mixed An array of post-type objects
-	 */
-	private function get_post_types() {
-		// by default do not include
-		$disallowed_post_types = apply_filters('msp_disallowed_post_types', array('attachment', 'revision', 'nav_menu_item'));
-		$post_types = get_post_types(array(), 'objects');
-		
-		foreach ($disallowed_post_types as $dpt) {
-			if (isset($post_types[$dpt])) unset($post_types[$dpt]);
-		}
-		
-		return $post_types;
-	}
-	
-	/**
-	 * Helper method to return valid widget taxonomies
-	 * 
-	 * If the `$post_type` parameter is used the taxonomies will be filtered for this post type only.
-	 * The `post_format` taxonomy will be skipped.
-	 * The `msp_disallowed_taxonomies` filter is available to block any other taxonomies.
-	 * @since 1.0
-	 * @access private
-	 * @param string $post_type The key for the post type to retrieve taxonomies for.
-	 * @return mixed An array of taxonomies for the requested post-type
-	 */
-	private function get_taxonomies($post_type = false) {
-		global $wp_taxonomies;
-		
-		if ($post_type) {
-			$tax_post_types = (array)$post_type;
-		} else {
-			// if no $post_type is provided -- get all post types
-			$tax_post_types = array();
-			$tax_post_types_objects = $this->get_post_types();
-			
-			foreach ($tax_post_types_objects as $post_type => $post_type_obj) {
-				$tax_post_types[] = $post_type;
-			}
-		}
-		
-		$taxonomies = array();
-		foreach ($wp_taxonomies as $tax => $tax_object) {
-			// skip private taxonimies
-			if (!$tax_object->public) continue;
-			
-			// skip blocked taxonomies
-			if (in_array($tax, apply_filters('msp_disallowed_taxonomies', array('post_format')))) continue;
-			
-			foreach ($tax_object->object_type as $object_type) {
-				if (in_array($object_type, $tax_post_types)) {
-					$taxonomies[$tax] = $tax_object;
-					break;
-				}
-			}
-		}
-		
-		return $taxonomies;
-	}
-	
-	/**
 	 * Widget constructor method
 	 * 
 	 * @since 1.0
@@ -144,10 +77,10 @@ class Magadanski_Similar_Posts_Widget extends WP_Widget {
 		$title = isset($instance['title']) ? $instance['title'] : '';
 		$limit = isset($instance['limit']) ? absint($instance['limit']) : $defaults['posts_per_page'];
 		
-		$all_post_types = $this->get_post_types();
+		$all_post_types = msp_get_post_types();
 		$current_post_type = isset($instance['post_type']) ? $instance['post_type'] : '';
 		
-		$all_taxonomies = $this->get_taxonomies($current_post_type);
+		$all_taxonomies = msp_get_taxonomies($current_post_type);
 		$current_taxonomy = isset($instance['taxonomy']) ? $instance['taxonomy'] : $all_taxonomies;
 		?>
 		<p>
@@ -205,11 +138,11 @@ class Magadanski_Similar_Posts_Widget extends WP_Widget {
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['limit'] = isset($new_instance['limit']) ? absint($new_instance['limit']) : $old_instance['limit'];
 		
-		if (isset($new_instance['post_type']) && array_key_exists($new_instance['post_type'], $this->get_post_types())) {
+		if (isset($new_instance['post_type']) && array_key_exists($new_instance['post_type'], msp_get_post_types())) {
 			$instance['post_type'] = $new_instance['post_type'];
 		}
 		
-		if (isset($new_instance['taxonomy']) && array_key_exists($new_instance['taxonomy'], $this->get_taxonomies($instance['post_type']))) {
+		if (isset($new_instance['taxonomy']) && array_key_exists($new_instance['taxonomy'], msp_get_taxonomies($instance['post_type']))) {
 			$instance['taxonomy'] = $new_instance['taxonomy'];
 		}
 		

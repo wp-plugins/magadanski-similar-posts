@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+#visual_composer_content .wpb_magadanski-similar-posts .wpb_element_wrapper,
+.wpb-content-layouts .wpb-layout-element-button .msp {
+	background-image: url(img/logo.png);
+}
+
+.wpb-content-layouts .wpb-layout-element-button .msp {
+	width: 32px;
+	height: 32px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 108dpi) {
+	#visual_composer_content .wpb_magadanski-similar-posts .wpb_element_wrapper,
+	.wpb-content-layouts .wpb-layout-element-button .msp {
+		background-image: url(img/logo@2x.png);
+		background-size: 32px 32px;
+	}
+}
