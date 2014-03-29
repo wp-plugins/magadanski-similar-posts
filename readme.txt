@@ -66,6 +66,7 @@ Added [WPBakery Visual Composer](http://vc.wpbakery.com/) integration.
 Fix: `set_similar_id` uses current post's ID only of `$id` argument is 0 AND `similar_id` property is 0 too.
 
 Dev: externalized `get_post_types` and `get_taxonomies` methods for `Magadanski_Similar_Posts_Widget` widget as global helper functions prefixed `msp_`:
+
  * `msp_get_post_types`
  * `msp_get_taxonomies`
 
