@@ -235,7 +235,7 @@ class Magadanski_Similar_Posts {
 	}
 	
 	/**
-	 * Posts request modification filder
+	 * Posts request modification filter
 	 * 
 	 * @since 1.0
 	 * @access public
@@ -348,7 +348,7 @@ class Magadanski_Similar_Posts {
 			$output = ob_get_clean();
 		}
 		
-		wp_reset_query();
+		wp_reset_postdata();
 		
 		return $output;
 	}

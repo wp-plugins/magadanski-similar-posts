@@ -68,7 +68,7 @@ Feel free to submit patches for updating Spanish translation or adding a new one
 = 1.1 =
 Added [WPBakery Visual Composer](http://vc.wpbakery.com/) integration.
 
-Fix: `set_similar_id` uses current post's ID only of `$id` argument is 0 AND `similar_id` property is 0 too.
+Fix: `set_similar_id` uses current post's ID only if `$id` argument is 0 AND `similar_id` property is 0 too.
 
 Dev: externalized `get_post_types` and `get_taxonomies` methods for `Magadanski_Similar_Posts_Widget` widget as global helper functions prefixed `msp_`:
 
