@@ -3,7 +3,7 @@
  * Plugin Name: M Similar Posts
  * Plugin URI: http://wordpress.org/plugins/magadanski-similar-posts/
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
@@ -186,7 +186,7 @@ class Magadanski_Similar_Posts {
 	 * @since 1.0
 	 * @access public
 	 * @param array $args Query parameters that will later on be passed to WP_Query. The parameters can be compatible. Terms from the `taxonomy` parameter will be used to determine similarity
-	 * @param int $similar_id = 0 The ID of the post you'd like to get similar for. By default this will use the current post's ID.
+	 * @param int $similar_id = 0 The ID of the post you'd like to get similar entries for. By default this will use the current post's ID.
 	 * @return WP_Query Object containing similar posts.
 	 */
 	public function get_similar_posts($args = array(), $similar_id = 0) {
@@ -330,9 +330,7 @@ class Magadanski_Similar_Posts {
 			'limit' => 5,
 		), $atts));
 		
-		$this->set_similar_id($id);
-		
-		$similar_posts = $this->get_similar_posts(array('post_type'=>$post_type, 'taxonomy'=>$taxonomy, 'posts_per_page'=>absint($limit), 'no_found_rows'=>true));
+		$similar_posts = $this->get_similar_posts(array('post_type'=>$post_type, 'taxonomy'=>$taxonomy, 'posts_per_page'=>absint($limit), 'no_found_rows'=>true), $id);
 		
 		if ($similar_posts->have_posts()) {
 			ob_start();
@@ -415,6 +413,12 @@ class Magadanski_Similar_Posts {
 	}
 }
 
+global $magadanski_similar_posts;
 $magadanski_similar_posts = Magadanski_Similar_Posts::get_instance();
+
+// Shortcut function for Magadanski_Similar_Posts::get_similar_posts()
+function msp_get_similar_posts($args = array(), $similar_id = 0) {
+	$magadanski_similar_posts->get_similar_posts($args, $similar_id);
+}
 
 ?>
