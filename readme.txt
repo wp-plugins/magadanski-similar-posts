@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-post
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.1.2 =
+Bugfix for showing the plugin widget on pages if necessary.
+
+Fix for other potential issues.
 
 = 1.1.1 =
 Internationalization updates.

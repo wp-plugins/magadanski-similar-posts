@@ -3,7 +3,7 @@
  * Plugin Name: M Similar Posts
  * Plugin URI: http://wordpress.org/plugins/magadanski-similar-posts/
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2

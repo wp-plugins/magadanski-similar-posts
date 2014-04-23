@@ -33,7 +33,7 @@ class Magadanski_Similar_Posts_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function widget($args, $instance) {
-		if (is_single()) {
+		if (is_singular()) {
 			$magadanski_similar_posts = Magadanski_Similar_Posts::get_instance();
 			
 			$similar_posts_entries = $magadanski_similar_posts->get_similar_posts(array('posts_per_page'=>$instance['limit'], 'taxonomy'=>$instance['taxonomy']));
@@ -58,7 +58,7 @@ class Magadanski_Similar_Posts_Widget extends WP_Widget {
 				echo $args['after_widget'];
 			}
 			
-			wp_reset_query();
+			wp_reset_postdata();
 		}
 	}
 	
