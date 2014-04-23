@@ -43,7 +43,7 @@ Yes, this works for pages, posts or any custom post type you have.
 
 = Does this check the post's content too? =
 
-No, currently similarity is calculated only in by shared taxonomy terms (categories, tags, etc).
+No, currently similarity is calculated only by shared taxonomy terms (categories, tags, etc).
 
 = Is the plugin offered in my language? =
 
