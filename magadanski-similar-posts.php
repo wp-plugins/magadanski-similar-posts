@@ -245,7 +245,7 @@ class Magadanski_Similar_Posts {
 		global $wpdb;
 		
 		// use regular expression to modify "SELECT" statement, as no filter is available for that
-		$request = preg_replace('/SELECT ([^(FROM)]+) FROM/', 'SELECT $1, COUNT(`' . $wpdb->posts . '`.`post_title`) AS `msp_connections` FROM', $request);
+		$request = preg_replace('/SELECT (.*?) FROM/iu', 'SELECT $1, COUNT(`' . $wpdb->posts . '`.`post_title`) AS `msp_connections` FROM', $request);
 		
 		return $request;
 	}
