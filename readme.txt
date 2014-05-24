@@ -3,8 +3,8 @@ Contributors: magadanski_uchen
 Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-posts/
 Tags: similar, posts, category
 Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 1.1.3
+Tested up to: 3.9.1
+Stable tag: 1.1.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.1.4 =
+Fix for improper regular expression for request SQL query modification.
 
 = 1.1.3 =
 Dev: added `msp_get_similar_posts()` shortcut function.
