@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-post
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.1.6 =
+Dev: fix for notice -- missing "global" keyword for variable.
 
 = 1.1.5 =
 Fix for widget bug to allow support for custom post types.
