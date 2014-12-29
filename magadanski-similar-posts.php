@@ -3,7 +3,7 @@
  * Plugin Name: M Similar Posts
  * Plugin URI: http://wordpress.org/plugins/magadanski-similar-posts/
  * Description: Shows similar posts ordered by the number of common categories.
- * Version: 1.1.6
+ * Version: 1.2
  * Author: Georgi Popov a.k.a. Magadanski_Uchen
  * Author URI: http://magadanski.com/
  * License: GPL2
@@ -27,7 +27,7 @@ class Magadanski_Similar_Posts {
 	 * @access public
 	 * @const VERSION
 	 */
-	const VERSION = '1.1.5';
+	const VERSION = '1.2';
 	
 	/**
 	 * Singleton instance holder
@@ -335,13 +335,19 @@ class Magadanski_Similar_Posts {
 		if ($similar_posts->have_posts()) {
 			ob_start();
 			
-			echo '<ul>';
+			$tag = apply_filters('msp_similar_posts_list_tag', 'ul');
+			$tag = apply_filters('msp_similar_posts_shortcode_tag', $tag);
+			
+			$classes = apply_filters('msp_similar_posts_list_classes', array('msp-list'));
+			$classes = apply_filters('msp_similar_posts_shortcode_classes', $classes);
+			
+			echo '<' . $tag . ' class="' . implode(' ', $classes) . '">';
 			while ($similar_posts->have_posts()) {
 				$similar_posts->the_post();
 				$post_title = get_the_title();
 				echo '<li><a href="' . get_permalink(get_the_ID()) . '" title="' . esc_attr($post_title) . '">' . $post_title . '</a></li>';
 			}
-			echo '</ul>';
+			echo '</' . $tag . '>';
 			
 			$output = ob_get_clean();
 		}

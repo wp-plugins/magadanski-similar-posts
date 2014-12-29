@@ -47,13 +47,19 @@ class Magadanski_Similar_Posts_Widget extends WP_Widget {
 					echo $args['before_title'] . $title . $args['after_title'];
 				}
 				
-				echo '<ul>';
+				$tag = apply_filters('msp_similar_posts_list_tag', 'ul');
+				$tag = apply_filters('msp_similar_posts_widget_tag', $tag);
+				
+				$classes = apply_filters('msp_similar_posts_list_classes', array('msp-list'));
+				$classes = apply_filters('msp_similar_posts_widget_classes', $classes);
+				
+				echo '<' . $tag . ' class="' . implode(' ', $classes) . '">';
 				while ($similar_posts_entries->have_posts()) {
 					$similar_posts_entries->the_post();
 					$post_title = get_the_title();
 					echo '<li><a href="' . get_permalink(get_the_ID()) . '" title="' . esc_attr($post_title) . '">' . $post_title . '</a></li>';
 				}
-				echo '</ul>';
+				echo '</' . $tag . '>';
 				
 				echo $args['after_widget'];
 			}

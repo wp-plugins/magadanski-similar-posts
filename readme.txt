@@ -4,7 +4,7 @@ Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-post
 Tags: similar, posts, category
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.1.6
+Stable tag: 1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,19 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.2 =
+Dev: The following filters have been added for some control over the generated list markup:
+
+`msp_similar_posts_list_tag` -- by default this is `ul` but you can set it to `ol`.
+
+There are two more similar filters for this: `msp_similar_posts_shortcode_tag` and `msp_similar_posts_widget_tag`. As you may guess by the name, those allow to set the tag for only either the shortcode markup or the widget markup.
+
+These secondary filters are executed after the main `msp_similar_posts_list_tag`, so they can overwrite the value.
+
+`msp_similar_posts_list_classes` -- this allows you to add/edit/remove classes for the list tag. By default only one class is present: "msp-list".
+
+There are two secondary filters for this as well: `msp_similar_posts_shortcode_classes` and `msp_similar_posts_widget_classes`.
 
 = 1.1.6 =
 Dev: fix for notice -- missing "global" keyword for variable.
