@@ -426,7 +426,8 @@ $magadanski_similar_posts = Magadanski_Similar_Posts::get_instance();
 function msp_get_similar_posts($args = array(), $similar_id = 0) {
 	global $magadanski_similar_posts;
 	
-	$magadanski_similar_posts->get_similar_posts($args, $similar_id);
+	return $magadanski_similar_posts->get_similar_posts($args, $similar_id);
+	
 }
 
 ?>
