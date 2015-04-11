@@ -3,8 +3,8 @@ Contributors: magadanski_uchen
 Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-posts/
 Tags: similar, posts, category
 Requires at least: 3.0
-Tested up to: 4.1
-Stable tag: 1.2
+Tested up to: 4.1.1
+Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,11 @@ The plugin is originally distributed in English and is also translated in Spanis
 1. The options for the plugin's widget.
 
 == Changelog ==
+
+= 1.2.1 =
+Bugfix: added missing return statement for public functions.
+
+This is an absolutely safe to install update -- it won't break any of the existing functionality and you are encouraged to do so.
 
 = 1.2 =
 Dev: The following filters have been added for some control over the generated list markup:
