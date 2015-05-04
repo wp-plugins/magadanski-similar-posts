@@ -2,8 +2,8 @@
 Contributors: magadanski_uchen
 Donate link: http://buy-me-a-beer.magadanski.com/project/magadanski-similar-posts/
 Tags: similar, posts, category
-Requires at least: 3.0
-Tested up to: 4.1.1
+Requires at least: 3.8
+Tested up to: 4.2.1
 Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
